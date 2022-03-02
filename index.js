@@ -1,4 +1,4 @@
-const WebSocket = require('ws');
+const { Server } = require('ws');
 const express = require('express');
 const cors = require('cors');
 
@@ -6,7 +6,7 @@ const server = express();
 
 server.use(cors());
 
-const wss = new WebSocket.WebSocketServer({ server });
+const wss = new Server({ server });
 var master;
 var slaves = [];
 wss.on('connection', (ws, req) => {
