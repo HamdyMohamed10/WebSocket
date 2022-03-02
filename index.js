@@ -1,6 +1,12 @@
 const WebSocket = require('ws');
+const express = require('express');
+const cors = require('cors');
 
-const wss = new WebSocket.Server({ port: process.env.PORT || 8082 });
+const server = express();
+
+server.use(cors());
+
+const wss = new WebSocket.WebSocketServer({ server });
 var master;
 var slaves = [];
 wss.on('connection', (ws, req) => {
@@ -22,3 +28,7 @@ wss.on('connection', (ws, req) => {
       slaves.push(ws);
   }
 });
+
+server.listen(process.env.PORT || 8080, () =>
+  console.log(`Listening on port ${process.env.PORT || 8080}`),
+);
